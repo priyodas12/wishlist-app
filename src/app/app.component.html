@@ -1,21 +1,26 @@
 <div class="container">
-  <div class="condition" *ngIf="wishlist.length === 0">
-    <h3>No Wishlist as of now!</h3>
-  </div>
-  <ul class="wish-list" *ngIf="wishlist.length > 0">
-    <li class="wish-item" *ngFor="let wishItem of wishlist">
-      <div class="form-check">
-        <label for="" class="form-check-lebel">
-          <input
-            type="checkbox"
-            name="check-box"
-            id="check-box"
-            class="checkbox"
-          />
-          {{ wishItem.wishText }} | {{ wishItem.isComplete }} |
-          {{ wishItem.completeDate | date }}
-        </label>
-      </div>
-    </li>
-  </ul>
+  <div
+    *ngIf="wishlist.length === 0; then emptyWishList; else fullWishList"
+  ></div>
+  <ng-template #emptyWishList>
+    <p>No wishlist as of now!</p>
+  </ng-template>
+  <ng-template #fullWishList>
+    <ul class="wish-list" *ngIf="wishlist.length > 0">
+      <li class="wish-item" *ngFor="let wishItem of wishlist">
+        <div class="form-check">
+          <label for="" class="form-check-lebel">
+            <input
+              type="checkbox"
+              name="check-box"
+              id="check-box"
+              class="checkbox"
+            />
+            {{ wishItem.wishText }} | {{ wishItem.isComplete }} |
+            {{ wishItem.completeDate | date }}
+          </label>
+        </div>
+      </li>
+    </ul>
+  </ng-template>
 </div>
