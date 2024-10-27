@@ -1,11 +1,49 @@
 <div class="container">
-  <div *ngIf="wishlist.length === 0; else fullWishList">
+  <div class="wish-list-form">
+    <form action="" class="mt-3 row" name="test">
+      <div class="col-sm-3">
+        <label for="inputWishItem" class="visually-hidden"> Wish </label>
+        <input
+          type="text"
+          class="form-control"
+          name="new-wish-text"
+          [(ngModel)]="newWishItemText"
+        />
+      </div>
+      <div class="col-sm-3">
+        <button
+          type="submit"
+          class="btn btn-danger"
+          (click)="$event.preventDefault(); addAnotherWishItem(newWishItemText)"
+        >
+          Add
+        </button>
+      </div>
+      <div class="col-sm-3">
+        <select
+          name="select-status"
+          id="select-status"
+          [(ngModel)]="selectStatus"
+          (ngModelChange)="filterChanged($event)"
+        >
+          <option value="0">All</option>
+          <option value="1">Not Started</option>
+          <option value="2">Completed</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <hr />
+  <div *ngIf="visibleWishlist.length === 0; else fullWishList">
     <p>No wishlist as of now!</p>
   </div>
   <ng-template #emptyWishList> </ng-template>
   <ng-template #fullWishList>
     <ul class="wish-list">
-      <li class="wish-item" *ngFor="let wishItem of wishlist; index as idx">
+      <li
+        class="wish-item"
+        *ngFor="let wishItem of visibleWishlist; index as idx"
+      >
         <div class="form-check">
           <label for="" class="form-check-lebel">
             <input
