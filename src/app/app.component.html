@@ -1,10 +1,8 @@
 <div class="container">
-  <div
-    *ngIf="wishlist.length === 0; then emptyWishList; else fullWishList"
-  ></div>
-  <ng-template #emptyWishList>
+  <div *ngIf="wishlist.length === 0; else fullWishList">
     <p>No wishlist as of now!</p>
-  </ng-template>
+  </div>
+  <ng-template #emptyWishList> </ng-template>
   <ng-template #fullWishList>
     <ul class="wish-list" *ngIf="wishlist.length > 0">
       <li class="wish-item" *ngFor="let wishItem of wishlist">
