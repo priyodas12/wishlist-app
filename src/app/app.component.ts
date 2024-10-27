@@ -15,18 +15,20 @@ export class AppComponent {
     new WishItem('Learn Typescript', true, new Date()),
     new WishItem('Learn Node', false, new Date()),
     new WishItem('Learn Angular', false, new Date()),
+    new WishItem('Learn Vue', true, new Date()),
   ];
 
   visibleWishlist: WishItem[] = this.getVisibleWishlist(this.selectStatus);
 
   getVisibleWishlist(value: string): WishItem[] {
     console.log('Changing Selection:', value);
-    if (value === '1') {
-      return this.wishlist.filter((wi) => !wi.isComplete);
-    } else if (value === '2') {
-      return this.wishlist.filter((wi) => wi.isComplete);
-    } else {
-      return this.wishlist;
+    switch (value) {
+      case '1':
+        return this.wishlist.filter((wi) => !wi.isComplete);
+      case '2':
+        return this.wishlist.filter((wi) => wi.isComplete);
+      default:
+        return this.wishlist;
     }
   }
 
