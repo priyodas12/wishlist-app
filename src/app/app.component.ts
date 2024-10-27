@@ -7,11 +7,16 @@ import WishItem from '../shared/model/wishItem';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  toggleWishList(e: WishItem) {
+    console.log('toggle clicked!', e);
+    e.isComplete = !e.isComplete;
+    console.log('post toggle', e);
+  }
   title = 'wishlist-app';
 
   wishlist: WishItem[] = [
     new WishItem('Learn Typescript', true, new Date()),
-    new WishItem('Learn Node', true, new Date()),
-    new WishItem('Learn Angular', true, new Date()),
+    new WishItem('Learn Node', false, new Date()),
+    new WishItem('Learn Angular', false, new Date()),
   ];
 }

@@ -4,8 +4,8 @@
   </div>
   <ng-template #emptyWishList> </ng-template>
   <ng-template #fullWishList>
-    <ul class="wish-list" *ngIf="wishlist.length > 0">
-      <li class="wish-item" *ngFor="let wishItem of wishlist">
+    <ul class="wish-list">
+      <li class="wish-item" *ngFor="let wishItem of wishlist; index as idx">
         <div class="form-check">
           <label for="" class="form-check-lebel">
             <input
@@ -13,9 +13,15 @@
               name="check-box"
               id="check-box"
               class="checkbox"
+              [checked]="wishItem.isComplete"
+              [attr.data-index]="idx"
+              (click)="toggleWishList(wishItem)"
             />
-            {{ wishItem.wishText }} | {{ wishItem.isComplete }} |
-            {{ wishItem.completeDate | date }}
+            {{ idx }} - {{ wishItem.wishText }} --
+            {{ wishItem.isComplete ? "Completed" : "Not Completed" }}
+            <span *ngIf="wishItem.isComplete">
+              {{ wishItem.completeDate | date }}
+            </span>
           </label>
         </div>
       </li>
