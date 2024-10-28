@@ -68,3 +68,10 @@
     </div>
   </div>
 </div>
+<app-edit-wish-list
+  *ngIf="isModalOpen"
+  [wishItem]="currentWishItem"
+  (itemUpdated)="onItemUpdated($event)"
+  (close)="closeModal()"
+>
+</app-edit-wish-list>

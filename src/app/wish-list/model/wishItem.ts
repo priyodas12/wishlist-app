@@ -3,7 +3,7 @@ export default class WishItem {
     public wishId: Number,
     public wishDesc: String,
     public isCompleted: boolean,
-    public completeDate: Date,
+    public completeDate: Date | any,
     public startDate: Date,
   ) {}
 }

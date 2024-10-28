@@ -1,0 +1,53 @@
+<div class="modal" tabindex="-1" role="dialog" style="display: block">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Wish Item</h5>
+        <button type="button" class="btn btn-danger m-3" (click)="closeModal()">
+          <span aria-hidden="true">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-group mt-1">
+            <label for="wishDesc">Description</label>
+            <input
+              type="text"
+              id="wishDesc"
+              [(ngModel)]="wishItem.wishDesc"
+              name="wishDesc"
+              class="form-control mt-2"
+              required
+            />
+          </div>
+          <div class="form-group mt-1">
+            <label for="startDate">Start Date</label>
+            <input
+              type="date"
+              id="startDate"
+              [(ngModel)]="wishItem.startDate"
+              name="startDate"
+              class="form-control mt-2"
+              required
+            />
+          </div>
+          <div class="form-group mt-1">
+            <label for="completeDate">Complete Date</label>
+            
+            <input
+              type="date"
+              id="completeDate"
+              [(ngModel)]="wishItem.completeDate"
+              name="completeDate"
+              class="form-control mt-2"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-2">
+            Save changes
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

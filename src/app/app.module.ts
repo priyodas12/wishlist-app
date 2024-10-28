@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { DisplayWishListComponent } from './wish-list/display-wish-list/display-wish-list.component';
 import { AddWishListComponent } from './wish-list/add-wish-list/add-wish-list.component';
 import { WishListComponent } from './wish-list/wish-list.component';
+import { EditWishListComponent } from './wish-list/edit-wish-list/edit-wish-list.component';
 
 @NgModule({
-  declarations: [AppComponent, HighlightDirective, DisplayWishListComponent, AddWishListComponent, WishListComponent],
+  declarations: [AppComponent, HighlightDirective, DisplayWishListComponent, AddWishListComponent, WishListComponent, EditWishListComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
