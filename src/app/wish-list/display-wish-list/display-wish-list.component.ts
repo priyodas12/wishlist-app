@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import WishItem from '../model/wishItem';
 
 @Component({
@@ -8,6 +8,10 @@ import WishItem from '../model/wishItem';
 })
 export class DisplayWishListComponent {
   selectedWishListItem: String = '0';
+
+  @Input()
+  wishItemFromParent!: WishItem;
+
   wishItemList: WishItem[] = [
     new WishItem(1, 'Learning TS', false, new Date(), new Date()),
     new WishItem(2, 'Learning Node', false, new Date(), new Date()),
@@ -30,5 +34,21 @@ export class DisplayWishListComponent {
     } else {
       return this.wishItemList;
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['wishItemFromParent'] && this.wishItemFromParent) {
+      this.wishItemFromParent.wishId = this.wishItemList.length + 1;
+      this.wishItemList.push(this.wishItemFromParent);
+    }
+  }
+
+  editWishItem(editWishItem: WishItem) {
+    console.log('edit wishItem', editWishItem);
+  }
+  deleteWishItem(deleteWishItem: WishItem) {
+    console.log('delete wishItem', deleteWishItem);
+    const delIndex = this.wishItemList.indexOf(deleteWishItem);
+    this.wishItemList.splice(delIndex, 1);
   }
 }

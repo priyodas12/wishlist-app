@@ -1,36 +1,43 @@
 <div class="container">
-  <form class="row g-3 mt-3">
+  <form
+    class="row g-3 mt-3"
+    #wishformData="ngForm"
+    (ngSubmit)="onSubmitWishItem(wishformData)"
+  >
     <div class="col-sm-3">
       <input
         type="text"
-        name="wish-item-name"
+        name="wishItemName"
         id="wish-item-name"
         class="form-control form-control-lg"
         placeholder="Wish Item Description"
+        ngModel
       />
     </div>
 
     <div class="col-sm-3">
       <input
         type="text"
-        name="wish-item-start-date"
+        name="wishItemStartDate"
         id="wish-item-start-date"
         class="form-control form-control-lg"
         placeholder="Start Date (YYYY-MM-DD)"
         onfocus="(this.type='date')"
         onblur="(this.type='text')"
+        ngModel
       />
     </div>
 
     <div class="col-sm-3">
       <input
         type="text"
-        name="wish-item-end-date"
+        name="wishItemEndDate"
         id="wish-item-end-date"
         class="form-control form-control-lg"
         placeholder="End Date (YYYY-MM-DD)"
         onfocus="(this.type='date')"
         onblur="(this.type='text')"
+        ngModel
       />
     </div>
 
@@ -41,7 +48,7 @@
           class="form-check-input"
           [(ngModel)]="isChecked"
           id="status-checkbox"
-          name="status-checkbox"
+          name="isCompleted"
         />
         <label for="status-checkbox" class="form-check-label">Completed</label>
       </div>

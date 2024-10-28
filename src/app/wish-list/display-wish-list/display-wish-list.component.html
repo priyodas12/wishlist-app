@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="displayWishListItem().length > 0">
   <div class="row mt-4 mb-4">
     <div class="col-sm-12">
       <select
@@ -20,8 +20,9 @@
           <div class="col-sm-1 fw-bold">Wish Id</div>
           <div class="col-sm-2 fw-bold">Wish Status</div>
           <div class="col-sm-4 fw-bold">Wish Description</div>
-          <div class="col-sm-2 fw-bold">Wish Start</div>
+          <div class="col-sm-1 fw-bold">Wish Start</div>
           <div class="col-sm-1 fw-bold">Wish End</div>
+          <div class="col-sm-1 fw-bold">Actions</div>
         </div>
       </ng-container>
     </div>
@@ -29,7 +30,7 @@
   <div class="row mt-2">
     <div class="col-sm-12">
       <ng-container *ngFor="let wishItem of displayWishListItem()">
-        <div class="wish-item row p-2">
+        <div class="wish-item row p-2 border-bottom">
           <div class="col-sm-1">
             <input
               type="checkbox"
@@ -44,9 +45,23 @@
             {{ wishItem.isCompleted ? "Completed" : "Not Completed" }}
           </div>
           <div class="col-sm-4">{{ wishItem.wishDesc }}</div>
-          <div class="col-sm-2">{{ wishItem.startDate | date }}</div>
-          <div class="col-sm-2">
+          <div class="col-sm-1">{{ wishItem.startDate | date }}</div>
+          <div class="col-sm-1">
             {{ wishItem.isCompleted ? (wishItem.completeDate | date) : "" }}
+          </div>
+          <div class="col-sm-1">
+            <button
+              class="btn btn-warning p-1 m-1"
+              (click)="editWishItem(wishItem)"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-danger p-1 m-1"
+              (click)="deleteWishItem(wishItem)"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </ng-container>

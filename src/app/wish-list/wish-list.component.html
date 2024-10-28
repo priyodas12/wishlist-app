@@ -1,2 +1,7 @@
-<app-add-wish-list></app-add-wish-list>
-<app-display-wish-list></app-display-wish-list>
+<app-add-wish-list
+  (wishItemDataSent)="addWishListToParent($event)"
+></app-add-wish-list>
+
+<app-display-wish-list
+  [wishItemFromParent]="wishItemParent"
+></app-display-wish-list>
