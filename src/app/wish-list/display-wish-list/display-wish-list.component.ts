@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { default as WishItem } from '../model/wishItem';
+import { WishListService } from '../service/wish-list.service';
 
 @Component({
   selector: 'app-display-wish-list',
@@ -7,6 +8,13 @@ import { default as WishItem } from '../model/wishItem';
   styleUrl: './display-wish-list.component.css',
 })
 export class DisplayWishListComponent {
+  private wishListService: WishListService;
+
+  private fetchedWishItemById!: WishItem;
+
+  constructor(wishListService: WishListService) {
+    this.wishListService = wishListService;
+  }
   selectedWishListItem: String = '0';
 
   @Input()
@@ -14,11 +22,7 @@ export class DisplayWishListComponent {
 
   isModalOpen = false;
 
-  wishItemList: WishItem[] = [
-    new WishItem(1, 'Learning TS', false, new Date(), new Date()),
-    new WishItem(2, 'Learning Node', false, new Date(), new Date()),
-    new WishItem(3, 'Learning Angular', false, new Date(), new Date()),
-  ];
+  wishItemList: WishItem[] = [];
   currentWishItem: any;
 
   onClickComplete(wishItemCompleted: WishItem) {
@@ -41,53 +45,86 @@ export class DisplayWishListComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['wishItemFromParent'] && this.wishItemFromParent) {
-      this.wishItemFromParent.wishId = this.wishItemList.length + 1;
+      console.log(this.wishItemFromParent);
       this.wishItemList.push(this.wishItemFromParent);
     }
   }
 
+  ngOnInit() {
+    this.loadWishListData();
+  }
+
   editWishItem(editWishItem: WishItem) {
-    console.log('edit wishItem', editWishItem);
+    console.log('editWishItem', editWishItem);
     this.currentWishItem = { ...editWishItem };
     console.log(this.currentWishItem);
     this.isModalOpen = true;
   }
+
   deleteWishItem(deleteWishItem: WishItem) {
     console.log('delete wishItem', deleteWishItem);
-    const delIndex = this.wishItemList.indexOf(deleteWishItem);
-    this.wishItemList.splice(delIndex, 1);
+    this.wishListService.deleteWishItem(deleteWishItem).subscribe({
+      next: (value) => {
+        console.log('Next:deleteWishItem: ', value);
+      },
+      error: (error) => {
+        console.log('Error: deleteWishItem: ', error);
+      },
+      complete: () => {
+        console.log('Completed: deleteWishItem: ');
+        this.loadWishListData();
+      },
+    });
   }
 
   onItemUpdated(updatedItem: WishItem) {
     console.log('onItemUpdated', updatedItem);
 
-    const foundIndex = this.wishItemList.findIndex(
-      (item) => item.wishId === updatedItem.wishId,
-    );
-    console.log('foundIndex', foundIndex);
-
-    if (foundIndex !== -1) {
-      const updateDate = new Date(updatedItem.completeDate);
-      if (
-        updateDate &&
-        updateDate instanceof Date &&
-        !isNaN(updateDate.getTime()) &&
-        updateDate.getTime() <= new Date().getTime()
-      ) {
-        console.log('checked');
-        updatedItem.isCompleted = true;
-      } else {
-        updatedItem.completeDate = new Date();
-      }
-      console.log('updatedItem', updatedItem);
-      this.wishItemList[foundIndex] = updatedItem;
+    const updateDate = new Date(updatedItem.completeDate);
+    if (
+      updateDate &&
+      updateDate instanceof Date &&
+      !isNaN(updateDate.getTime()) &&
+      updateDate.getTime() <= new Date().getTime()
+    ) {
+      updatedItem.isCompleted = true;
+    } else {
+      updatedItem.completeDate = new Date();
     }
+
+    this.wishListService.updateWishItem(updatedItem).subscribe({
+      next: (value: WishItem) => {
+        console.log('Next:updateWishItem: ', value);
+      },
+      error: (error) => {
+        console.log('Error:updateWishItem: ', error);
+      },
+      complete: () => {
+        console.log('Completed:updateWishItem: ', updatedItem);
+        this.loadWishListData();
+      },
+    });
     this.isModalOpen = false;
     this.displayWishListItem();
   }
 
   closeModal() {
-    console.log('closeModal');
+    console.log('closeModal: ');
     this.isModalOpen = false;
+  }
+
+  loadWishListData() {
+    this.wishListService.getWishItems().subscribe({
+      next: (items: WishItem[]) => {
+        this.wishItemList = items;
+        console.log('Next:loadWishListData: ', items);
+      },
+      error: (error) => {
+        console.log('Error:loadWishListData: ', error);
+      },
+      complete: () => {
+        console.log('Complete:loadWishListData:');
+      },
+    });
   }
 }

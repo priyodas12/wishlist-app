@@ -1,5 +1,6 @@
 export default class WishItem {
   constructor(
+    public _id: Number,
     public wishId: Number,
     public wishDesc: String,
     public isCompleted: boolean,

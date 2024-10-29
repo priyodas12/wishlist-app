@@ -17,8 +17,8 @@
       <ng-container>
         <div class="wish-item row p-2 border-top border-bottom">
           <div class="col-sm-1 fw-bold">Check</div>
-          <div class="col-sm-1 fw-bold">Wish Id</div>
-          <div class="col-sm-2 fw-bold">Wish Status</div>
+          <div class="col-sm-2 fw-bold">Wish Id</div>
+          <div class="col-sm-1 fw-bold">Wish Status</div>
           <div class="col-sm-4 fw-bold">Wish Description</div>
           <div class="col-sm-1 fw-bold">Wish Start</div>
           <div class="col-sm-1 fw-bold">Wish End</div>
@@ -40,8 +40,8 @@
               (click)="onClickComplete(wishItem)"
             />
           </div>
-          <div class="col-sm-1">{{ wishItem.wishId }}</div>
-          <div class="col-sm-2">
+          <div class="col-sm-2">{{ wishItem.wishId }}</div>
+          <div class="col-sm-1">
             {{ wishItem.isCompleted ? "Completed" : "Not Completed" }}
           </div>
           <div class="col-sm-4">{{ wishItem.wishDesc }}</div>

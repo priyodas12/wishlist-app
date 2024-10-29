@@ -9,10 +9,18 @@ import { DisplayWishListComponent } from './wish-list/display-wish-list/display-
 import { AddWishListComponent } from './wish-list/add-wish-list/add-wish-list.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { EditWishListComponent } from './wish-list/edit-wish-list/edit-wish-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, HighlightDirective, DisplayWishListComponent, AddWishListComponent, WishListComponent, EditWishListComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  declarations: [
+    AppComponent,
+    HighlightDirective,
+    DisplayWishListComponent,
+    AddWishListComponent,
+    WishListComponent,
+    EditWishListComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

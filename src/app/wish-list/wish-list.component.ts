@@ -11,5 +11,6 @@ export class WishListComponent {
 
   addWishListToParent(wishItem: WishItem) {
     this.wishItemParent = wishItem;
+    console.log('wishItemParent: ', wishItem);
   }
 }
